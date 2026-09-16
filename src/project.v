@@ -24,7 +24,16 @@ module tt_um_example (
   assign uio_oe  = 0;
 
   always @(posedge clk or negedge rst_n) begin
-    if (!rst_n) count <= ui_in;
+      if (!rst_n) begin
+          count[0] <= ui_in[0] ? 1'b1 : 0;
+          count[1] <= ui_in[1] ? 1'b1 : 0;
+          count[2] <= ui_in[2] ? 1'b1 : 0;
+          count[3] <= ui_in[3] ? 1'b1 : 0;
+          count[4] <= ui_in[4] ? 1'b1 : 0;
+          count[5] <= ui_in[5] ? 1'b1 : 0;
+          count[6] <= ui_in[6] ? 1'b1 : 0;
+          count[7] <= ui_in[7] ? 1'b1 : 0;
+      end
     else count <= count + 1;
   end
 
