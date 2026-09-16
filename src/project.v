@@ -16,7 +16,7 @@ module tt_um_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    reg [7:0] count = 0;
+    reg [7:0] count;
 
   // All output pins must be assigned. If not used, assign to 0.
   assign uo_out = count;
