@@ -20,14 +20,14 @@ async def test_project(dut):
     dut.ui_in.value = 0
     dut.uio_in.value = 0
     dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
+    await ClockCycles(dut.clk, 4)
     dut.rst_n.value = 1
 
     dut._log.info("Test project behavior")
 
     # Set the input values you want to test
     dut.ui_in.value = 240
-    dut.uio_in.value = 30
+    dut.uio_in.value = 0
 
     # Wait for one clock cycle to see the output values
     await ClockCycles(dut.clk, 1)
@@ -38,7 +38,7 @@ async def test_project(dut):
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
-    for i in range(4):
+    for i in range(20):
         await ClockCycles(dut.clk, 1)
         assert dut.uo_out.value == i+1, f"Expected {i+1}, got {dut.uo_out.value}"
     
@@ -46,7 +46,7 @@ async def test_project(dut):
     dut.rst_n.value = 0
     for i in range(10):
         await ClockCycles(dut.clk, 1)
-        assert dut.uo_out.value == dut.ui_in.value, f"Expected {dut.ui_in.value}, got {dut.uo_out.value}"
+        assert dut.uo_out.value == 0, f"Expected {0}, got {dut.uo_out.value}"
     dut.rst_n.value = 1
 
     # dut._log.info(dut.uo_out.value)
@@ -54,6 +54,13 @@ async def test_project(dut):
     # dut._log.info(dut.uo_out.value)
     # await ClockCycles(dut.clk, 30)
     # dut._log.info(dut.uo_out.value)
+
+    dut._log.info("Load")
+    dut.uio_in.value = 1
+    # dut._log.info(dut.uio_in.value)
+    await ClockCycles(dut.clk, 1)
+    # dut._log.info(dut.uo_out.value)
+    dut.uio_in.value = 0
     
     for i in range(16):
         await ClockCycles(dut.clk, 1)
