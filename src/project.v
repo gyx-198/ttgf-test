@@ -23,20 +23,12 @@ module tt_um_example (
   assign uio_out = 0;
   assign uio_oe  = 0;
 
-  // always @(posedge clk or negedge rst_n) begin
-  //     if (!rst_n) begin
-  //         count <= ui_in;
-  //     end
-  //   else count <= count + 1;
-  // end
-
-    always @(posedge clk) begin
-      count <= count + 1;
-    end
-
-    always @(negedge rst_n) begin
-      count <= ui_in;
-    end
+  always @(posedge clk or negedge rst_n) begin
+      if (!rst_n) begin
+          count <= ui_in;
+      end
+    else count <= count + 1;
+  end
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, uio_in, 1'b0};
