@@ -30,7 +30,7 @@ module tt_um_example (
   //   else count <= count + 1;
   // end
 
-    always @(posedge clk or negedge rst_n) begin
+    always @(posedge clk) begin
       count <= count + 1;
     end
 
